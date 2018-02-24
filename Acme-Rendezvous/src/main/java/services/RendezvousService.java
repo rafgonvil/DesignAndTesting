@@ -14,6 +14,7 @@ import repositories.RendezvousRepository;
 import domain.Announcement;
 import domain.Comment;
 import domain.Question;
+import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
 import forms.RendezvousForm;
@@ -28,7 +29,13 @@ public class RendezvousService {
 
 	// Supporting services --------------------------------------------------
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
+	
+	@Autowired
+	private RSVPService rsvpService;
+	
+	@Autowired
+	private UserService userService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -49,8 +56,7 @@ public class RendezvousService {
 		Boolean adultOnly;
 		Boolean finalMode;
 		Boolean deleted;
-		User creator;
-		Collection<User> attendants;
+		Collection<RSVP> rsvps;
 		Collection<Announcement> announcements;
 		Collection<Comment> comments;
 		Collection<Rendezvous> subRendezvouses;
@@ -66,9 +72,7 @@ public class RendezvousService {
 		adultOnly = false;
 		finalMode = false;
 		deleted = false;
-		creator = (User) this.actorService.findByPrincipal();
-		attendants = new ArrayList<User>();
-		attendants.add(creator);
+		rsvps = new ArrayList<RSVP>();
 		announcements = new ArrayList<Announcement>();
 		comments = new ArrayList<Comment>();
 		subRendezvouses = new ArrayList<Rendezvous>();
@@ -83,8 +87,7 @@ public class RendezvousService {
 		result.setAdultOnly(adultOnly);
 		result.setFinalMode(finalMode);
 		result.setDeleted(deleted);
-		result.setCreator(creator);
-		result.setAttendants(attendants);
+		result.setRsvps(rsvps);
 		result.setAnnouncements(announcements);
 		result.setComments(comments);
 		result.setSubRendezvouses(subRendezvouses);
@@ -109,9 +112,21 @@ public class RendezvousService {
 
 	public Rendezvous save(Rendezvous rendezvous) {
 		assert rendezvous != null;
+		User user;
 		Rendezvous result;
+		RSVP rsvp;
 
-		result = this.rendezvousRepository.save(rendezvous);
+		result = rendezvousRepository.save(rendezvous);
+		user = (User) actorService.findByPrincipal();
+		rsvp = rsvpService.create();
+		
+		rsvp.setRendezvous(result);
+		rsvpService.save(rsvp);
+		
+		user.getRendezvousesCreated().add(result);
+		user.getRsvps().add(rsvp);
+		userService.save(user);
+		
 		return result;
 	}
 
