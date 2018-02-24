@@ -1,0 +1,78 @@
+
+package domain;
+
+import java.util.Collection;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class User extends Actor {
+
+	//Atributos
+
+	//Atributos relacionales
+	private Collection<Comment> comments;
+	private Collection<Announcement> announcements;
+	private Collection<Rendezvous> rendezvousesCreated;
+	private Collection<Rendezvous> rendezvousesAttendant;
+	private Collection<Answer> answers;
+		
+	//Constructor
+	public User() {
+		super();
+	}
+	
+	@OneToMany()
+	public Collection<Comment> getComments(){
+		return this.comments;
+	}
+	
+	public void setComments(Collection<Comment> comments){
+		this.comments = comments;
+	}
+	
+	@OneToMany()
+	public Collection<Announcement> getAnnouncements() {
+		return announcements;
+	}
+
+	public void setAnnouncements(Collection<Announcement> announcements) {
+		this.announcements = announcements;
+	}
+	
+	
+	@OneToMany
+	public Collection<Rendezvous> getRendezvousesCreated() {
+		return rendezvousesCreated;
+	}
+
+	public void setRendezvousesCreated(Collection<Rendezvous> rendezvousesCreated) {
+		this.rendezvousesCreated = rendezvousesCreated;
+	}
+
+	@ManyToMany()
+	public Collection<Rendezvous> getRendezvousesAttendant() {
+		return rendezvousesAttendant;
+	}
+
+	public void setRendezvousesAttendant(Collection<Rendezvous> rendezvousesAttendant) {
+		this.rendezvousesAttendant = rendezvousesAttendant;
+	}
+
+	@OneToMany()
+	public Collection<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(Collection<Answer> answers) {
+		this.answers = answers;
+	}
+	
+	
+
+}

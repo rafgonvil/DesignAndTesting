@@ -1,0 +1,52 @@
+
+package domain;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Answer extends DomainEntity {
+
+	//Atributos
+	private String	text;
+
+	//Atributos relacionales
+	private User user;
+	private Question question;
+	
+	//Constructor
+	public Answer() {
+		super();
+	}
+
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(final String text) {
+		this.text = text;
+	}
+
+	@ManyToOne(optional=false)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@OneToOne(optional=false)
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+}

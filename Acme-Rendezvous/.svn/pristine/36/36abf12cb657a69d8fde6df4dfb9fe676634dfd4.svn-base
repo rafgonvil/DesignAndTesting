@@ -1,0 +1,77 @@
+
+package domain;
+
+import java.util.Date;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Announcement extends DomainEntity {
+
+	//Atributos 
+	private Date	moment;
+	private String	title;
+	private String	description;
+
+	//Atributos relacionales
+	private User user;
+	private Rendezvous rendezvous;
+	
+	//Constructor
+	public Announcement() {
+		super();
+	}
+
+	public Date getMoment() {
+		return this.moment;
+	}
+
+	public void setMoment(final Date moment) {
+		this.moment = moment;
+	}
+
+	@NotBlank
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
+
+	@NotBlank
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+	@ManyToOne(optional=false)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@ManyToOne(optional=false)
+	public Rendezvous getRendezvous() {
+		return rendezvous;
+	}
+
+	public void setRendezvous(Rendezvous rendezvous) {
+		this.rendezvous = rendezvous;
+	}
+	
+	
+
+}

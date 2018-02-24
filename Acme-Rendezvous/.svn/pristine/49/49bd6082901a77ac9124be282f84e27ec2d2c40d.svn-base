@@ -1,0 +1,55 @@
+
+package domain;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Question extends DomainEntity {
+
+	//Atributos
+	private String	question;
+	
+	//Atributos relacionales
+	private Rendezvous rendezvous;
+	private Answer answer;
+
+	//Constructor 
+	public Question() {
+		super();
+	}
+
+	@NotBlank
+	public String getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(final String question) {
+		this.question = question;
+	}
+
+	@ManyToOne(optional=false)
+	public Rendezvous getRendezvous() {
+		return rendezvous;
+	}
+
+	public void setRendezvous(Rendezvous rendezvous) {
+		this.rendezvous = rendezvous;
+	}
+
+	@OneToOne(optional=true)
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
+}

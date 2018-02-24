@@ -1,0 +1,23 @@
+# messages.properties
+#
+# Copyright (C) 2017 Universidad de Sevilla
+# 
+# The use of this project is hereby constrained to the conditions of the 
+# TDG Licence, a copy of which you may download from 
+# http://www.tdg-seville.info/License.html
+
+row.name				= Name
+row.description			= Description
+row.momentRendezvous	= Rendezvous moment
+row.picture				= Picture
+row.latitude			= Latitude
+row.longitude			= Longitude
+row.adultOnly			= Only adult
+ 
+boolean.yes				= Yes
+boolean.no				= No
+
+row.save				= Save
+row.cancel				= Cancel
+ 
+rendezvous.commit.error	= Commit error
