@@ -129,11 +129,49 @@ public class RendezvousService {
 		
 		return result;
 	}
+	
+	public Rendezvous saveToEdit(Rendezvous rendezvous){
+		assert rendezvous != null;
+		User user;
+		Rendezvous result;
+		
+		user = (User) actorService.findByPrincipal();
+		Assert.isTrue(!user.getRendezvousesCreated().contains(rendezvous));
+		Assert.isTrue(rendezvous.getFinalMode() == true);
+		
+		result = rendezvousRepository.save(rendezvous);
+		
+		return result;
+	}
+	
+	public Rendezvous saveFinal(Rendezvous rendezvous){
+		assert rendezvous != null;
+		User user;
+		Rendezvous result;
+		
+		user = (User) actorService.findByPrincipal();
+		Assert.isTrue(!user.getRendezvousesCreated().contains(rendezvous));
+		
+		rendezvous.setFinalMode(true);
+		result = rendezvousRepository.save(rendezvous);
+		
+		return result;
+	}
 
-	public void delete(Rendezvous rendezvous) {
+	public void deleteByAdmin(Rendezvous rendezvous) {
 		assert rendezvous != null;
 		assert rendezvous.getId() != 0;
-		this.rendezvousRepository.delete(rendezvous);
+		rendezvousRepository.delete(rendezvous);
+	}
+	
+	public void deleteByUser(Rendezvous rendezvous){
+		User user;
+		
+		user = (User) actorService.findByPrincipal();
+		Assert.isTrue(user.getRendezvousesCreated().contains(user));
+		
+		rendezvous.setDeleted(true);
+		save(rendezvous);
 	}
 
 	//Other methods-----------------------------------------------------------------------
@@ -147,6 +185,7 @@ public class RendezvousService {
 		res.setLatitude(rendezvous.getLatitude());
 		res.setLongitude(rendezvous.getLongitude());
 		res.setAdultOnly(rendezvous.getAdultOnly());
+		res.setRendezvousId(rendezvous.getId());
 
 		return res;
 	}
@@ -154,15 +193,18 @@ public class RendezvousService {
 	public Rendezvous reconstruct(RendezvousForm rendezvousForm) {
 		Rendezvous res;
 
-		res = this.create();
-
-		res.setName(rendezvousForm.getName());
-		res.setDescription(rendezvousForm.getDescription());
-		res.setMomentRendezvous(rendezvousForm.getMomentRendezvous());
-		res.setPicture(rendezvousForm.getPicture());
-		res.setLatitude(rendezvousForm.getLatitude());
-		res.setLongitude(rendezvousForm.getLongitude());
-		res.setAdultOnly(rendezvousForm.getAdultOnly());
+		if (rendezvousForm.getRendezvousId() == 0) {
+			res = this.create();
+		} else {
+			res = findOne(rendezvousForm.getRendezvousId());
+			res.setName(rendezvousForm.getName());
+			res.setDescription(rendezvousForm.getDescription());
+			res.setMomentRendezvous(rendezvousForm.getMomentRendezvous());
+			res.setPicture(rendezvousForm.getPicture());
+			res.setLatitude(rendezvousForm.getLatitude());
+			res.setLongitude(rendezvousForm.getLongitude());
+			res.setAdultOnly(rendezvousForm.getAdultOnly());
+		}
 
 		return res;
 	}

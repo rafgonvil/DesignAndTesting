@@ -77,9 +77,7 @@ public class UserService {
 		result.setComments(comments);
 		result.setAnnouncements(announcements);
 		result.setRendezvousesCreated(rendezvousesCreated);
-		result.setRendezvousesAttendant(rendezvousesAttendant);
-		result.setAnswers(answers);
-
+	
 		return result;
 	}
 

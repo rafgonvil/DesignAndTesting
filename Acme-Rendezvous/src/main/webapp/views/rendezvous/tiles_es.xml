@@ -22,8 +22,13 @@
 	</definition>
 	
 	<definition name="rendezvous/user/create" extends="master.page">	
-		<put-attribute name="title" value="Citas" />
+		<put-attribute name="title" value="Cita" />
 		<put-attribute name="body" value="/views/rendezvous/create.jsp" />
+	</definition>
+	
+	<definition name="rendezvous/user/edit" extends="master.page">	
+		<put-attribute name="title" value="Cita" />
+		<put-attribute name="body" value="/views/rendezvous/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

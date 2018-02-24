@@ -20,27 +20,30 @@ pageContext.setAttribute("now", date);
 
 <form:form action="${action}" modelAttribute="rendezvousForm">
 
-		<acme:textbox code="row.name" path="name" />
-		<br />
-		
-		<acme:textbox code="row.description" path="description" />
-		<br />
-		
-		<acme:textbox code="row.momentRendezvous" path="momentRendezvous" type="date" min="${now}" />
-		<br />
-		
-		<acme:textbox code="row.picture" path="picture" />
-		<br />
+	<form:hidden path="rendezvousId" />
 
-		<acme:textbox code="row.latitude" path="latitude" />
-		<br />
-		
-		<acme:textbox code="row.longitude" path="longitude" />
-		<br />
-		
-		<acme:checkbox code="row.adultOnly" path="adultOnly"/>
-		
-		<acme:submit name="save" code="row.save" />
-		<acme:cancel url="rendezvous/list.do" code="row.cancel" />
+	<acme:textbox code="row.name" path="name" />
+	<br />
+	
+	<acme:textbox code="row.description" path="description" />
+	<br />
+	
+	<acme:textbox code="row.momentRendezvous" path="momentRendezvous" type="date" min="${now}" />
+	<br />
+	
+	<acme:textbox code="row.picture" path="picture" />
+	<br />
+
+	<acme:textbox code="row.latitude" path="latitude" />
+	<br />
+	
+	<acme:textbox code="row.longitude" path="longitude" />
+	<br />
+	
+	<acme:checkbox code="row.adultOnly" path="adultOnly"/>
+	<br />
+	
+	<acme:submit name="save" code="row.save" />
+	<acme:cancel url="rendezvous/list.do" code="row.cancel" />
 
 </form:form>

@@ -47,6 +47,7 @@
 		
 	<!-- User -->
 	<security:intercept-url pattern="/rendezvous/user/create.do" access="hasRole('USER')" />
+	<security:intercept-url pattern="/rendezvous/user/edit.do" access="hasRole('USER')" />
 
 	<!-- None -->
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
