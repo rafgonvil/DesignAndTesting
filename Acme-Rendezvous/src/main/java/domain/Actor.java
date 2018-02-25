@@ -20,15 +20,15 @@ import security.UserAccount;
 public class Actor extends DomainEntity {
 
 	//Atributos
-	private String	name;
-	private String	surnames;
-	private String	postalAddress;
-	private String	phoneNumber;
-	private String	email;
-	private Date	birthDate;
-	
+	private String		name;
+	private String		surnames;
+	private String		postalAddress;
+	private String		phoneNumber;
+	private String		email;
+	private Date		birthDate;
+
 	//Atributos relacionales
-	private UserAccount userAccount;
+	private UserAccount	userAccount;
 
 
 	//Constructor
@@ -86,16 +86,16 @@ public class Actor extends DomainEntity {
 	public void setBirthDate(final Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	
+
 	//Relacionales
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	public UserAccount getUserAccount() {
-		return userAccount;
+		return this.userAccount;
 	}
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-	
+
 }

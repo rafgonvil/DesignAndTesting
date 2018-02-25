@@ -20,7 +20,7 @@ pageContext.setAttribute("now", date);
 
 <form:form action="${action}" modelAttribute="userForm">
 
-	<form:hidden path="userId" />
+	<form:hidden path="id" />
 
 	<acme:textbox code="row.name" path="name" />
 	<br />

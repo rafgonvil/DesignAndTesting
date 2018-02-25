@@ -15,10 +15,11 @@ import org.springframework.validation.Validator;
 
 import repositories.UserRepository;
 import domain.Announcement;
-import domain.Answer;
 import domain.Comment;
+import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
+import forms.UserForm;
 
 @Service
 @Transactional
@@ -52,8 +53,7 @@ public class UserService {
 		Collection<Comment> comments;
 		Collection<Announcement> announcements;
 		Collection<Rendezvous> rendezvousesCreated;
-		Collection<Rendezvous> rendezvousesAttendant;
-		Collection<Answer> answers;
+		Collection<RSVP> rsvps;
 
 		result = new User();
 
@@ -66,18 +66,19 @@ public class UserService {
 		comments = new ArrayList<Comment>();
 		announcements = new ArrayList<Announcement>();
 		rendezvousesCreated = new ArrayList<Rendezvous>();
-		rendezvousesAttendant = new ArrayList<Rendezvous>();
-		answers = new ArrayList<Answer>();
+		rsvps = new ArrayList<RSVP>();
 
 		result.setName(name);
 		result.setSurnames(surnames);
 		result.setPostalAddress(postalAddress);
 		result.setPhoneNumber(phoneNumber);
 		result.setBirthDate(birthDate);
+		result.setEmail(email);
 		result.setComments(comments);
 		result.setAnnouncements(announcements);
 		result.setRendezvousesCreated(rendezvousesCreated);
-	
+		result.setRsvps(rsvps);
+
 		return result;
 	}
 
@@ -98,8 +99,10 @@ public class UserService {
 	public User save(User user) {
 		Assert.notNull(user);
 		User result;
+
 		result = this.userRepository.save(user);
 		Assert.notNull(result);
+
 		return result;
 	}
 
@@ -115,20 +118,20 @@ public class UserService {
 
 	//Other business methods
 
-	public User reconstruct(User user, BindingResult binding) {
+	public User reconstruct(UserForm userForm, BindingResult binding) {
 		User result;
 
-		if (user.getId() == 0)
-			result = user;
+		if (userForm.getId() == 0)
+			result = this.create();
 		else {
-			result = this.userRepository.findOne(user.getId());
+			result = this.userRepository.findOne(userForm.getId());
 
-			result.setName(user.getName());
-			result.setSurnames(user.getSurnames());
-			result.setPostalAddress(user.getPostalAddress());
-			result.setPhoneNumber(user.getPhoneNumber());
-			result.setEmail(user.getEmail());
-			result.setBirthDate(user.getBirthDate());
+			result.setName(userForm.getName());
+			result.setSurnames(userForm.getSurnames());
+			result.setPostalAddress(userForm.getPostalAddress());
+			result.setPhoneNumber(userForm.getPhoneNumber());
+			result.setEmail(userForm.getEmail());
+			result.setBirthDate(userForm.getBirthDate());
 		}
 		this.validator.validate(result, binding);
 

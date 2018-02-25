@@ -22,7 +22,7 @@
 	</definition>
 	
 	<definition name="user/create" extends="master.page">	
-		<put-attribute name="title" value="Registrar como usuario" />
+		<put-attribute name="title" value="Formulario de usuario" />
 		<put-attribute name="body" value="/views/user/create.jsp" />
 	</definition>
 </tiles-definitions>
