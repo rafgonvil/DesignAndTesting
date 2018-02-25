@@ -25,6 +25,8 @@
 		
 		<bean class="converters.RendezvousToStringConverter" /> 
 		<bean class="converters.StringToRendezvousConverter" />
+		<bean class="converters.UserToStringConverter" />
+		<bean class="converters.StringToUserConverter" />
 		
 	</util:list>
 	
